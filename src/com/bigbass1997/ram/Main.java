@@ -10,12 +10,11 @@ package com.bigbass1997.ram;
 public class Main {
 	
 	public static void main(String [] args){
+		//Currently setup to evaluate the RAM's for the function based on: n=10^i where 1 <= i <= 5, min=0, max=4.
 		for(int i = 1; i <= 5; i++){
 			int n = (int) Math.pow(10, i);
 			
-			System.out.println("----Eval of n=" + n + "----");
-			(new RAMEval(0, 0, 4, n)).evaluate();
-			System.out.println();
+			(new RAMEval(0, 0, 4, n)).evaluate(); //Creates new object and immediately begins evaluation process of that object.
 		}
 	}
 }
