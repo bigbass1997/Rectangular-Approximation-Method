@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'res'
+        }
+    }
+}
+
+mainClassName = "com.bigbass1997.ram.Main"
+
+version = '1.0'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+jar {
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	manifest {
+	    attributes "Main-Class": mainClassName
+	}
+}

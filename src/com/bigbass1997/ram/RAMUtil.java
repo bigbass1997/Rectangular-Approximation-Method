@@ -5,6 +5,11 @@ package com.bigbass1997.ram;
 
 import java.util.LinkedList;
 
+import expr.Expr;
+import expr.Parser;
+import expr.SyntaxException;
+import expr.Variable;
+
 public class RAMUtil {
 	
 	/**
@@ -77,16 +82,24 @@ public class RAMUtil {
 	 * @param width value used to increase x incrementally until x reaches max
 	 * @return ordered list of y values based on hard coded "function" using x
 	 */
-	public static LinkedList<Double> getList(double min, double max, double width){
+	public static LinkedList<Double> getList(String func, double min, double max, double width){
 		LinkedList<Double> list = new LinkedList<Double>();
+		Variable x = Variable.make("x");
+		Expr expr = null;
+		try {
+			expr = Parser.parse(func);
+		} catch (SyntaxException e) {
+			e.printStackTrace();
+			return list;
+		}
 		
-		double x = min;
-		while(x <= max){
+		x.setValue(min);
+		while(x.value() <= max){
+			double val = expr.value();
 			
-			//TODO Require using a string and parser to allow passing in of a function instead of hard coding.
-			list.add((x*x) + 1);
+			list.add(Double.valueOf(val));
 			
-			x += width; //Increase x value based on provided width. Ensures that all values are equally incremented.
+			x.setValue(x.value() + width); //Increase x value based on provided width. Ensures that all values are equally incremented.
 		}
 		
 		return list;

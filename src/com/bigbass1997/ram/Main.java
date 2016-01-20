@@ -7,14 +7,29 @@
  */
 package com.bigbass1997.ram;
 
+import java.util.Scanner;
+
 public class Main {
+
+	public static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String [] args){
-		//Currently setup to evaluate the RAM's for the function based on: n=10^i where 1 <= i <= 5, min=0, max=4.
-		for(int i = 1; i <= 5; i++){
-			int n = (int) Math.pow(10, i);
-			
-			(new RAMEval(0, 0, 4, n)).evaluate(); //Creates new object and immediately begins evaluation process of that object.
-		}
+		
+		String func = getInput("Input Function:");
+		double initial = Double.valueOf(getInput("Input Initial:"));
+		int min = Integer.valueOf(getInput("Input Min:"));
+		int max = Integer.valueOf(getInput("Input Max:"));
+		int n = Integer.valueOf(getInput("Input n:"));
+		
+		(new RAMEval(func, initial, min, max, n)).evaluate();
+		
+		scanner.close();
+	}
+	
+	public static String getInput(String text){
+		System.out.println(text);
+		String response = scanner.nextLine();
+		
+		return response;
 	}
 }
